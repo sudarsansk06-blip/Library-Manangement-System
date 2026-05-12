@@ -1,0 +1,116 @@
+@startuml LibraryManagementSystem
+
+skinparam classAttributeIconSize 0
+skinparam classFontSize 13
+skinparam classAttributeFontSize 12
+skinparam classBorderColor #888
+skinparam classBackgroundColor #FAFAFA
+skinparam arrowColor #555
+skinparam arrowThickness 1.2
+
+' ─────────────── Enum ───────────────
+enum BOOKSTATUS {
+    AVAILABLE
+    B0RROWED
+    RETURNED
+    RESERVED
+}
+
+' ─────────────── Utility ───────────────
+class LibraryIdGenerator {
+    + {static} GeneratLibToken() : String
+}
+
+' ─────────────── Library ───────────────
+class Library {
+    - libraryName    : String
+    - libraryAddress : String
+    - libraryPho     : String
+    + {static} books   : List<Book>
+    + {static} members : List<Member>
+}
+
+' ─────────────── Book ───────────────
+class Book {
+    - bookId     : String
+    - title      : String
+    - author     : String
+    - bookStatus : BOOKSTATUS
+    + getbookId()         : String
+    + gettitle()          : String
+    + getAuthor()         : String
+    + getBookStatus()     : BOOKSTATUS
+    + setBookStatus(BOOKSTATUS) : void
+}
+
+' ─────────────── Librarian ───────────────
+class Librarian {
+    + addBook(book : Book)         : void
+    + removeBook(bookId : String)  : void
+    + showBooks()                  : void
+    + addMember(m : Member)        : void
+    + removeMember(id : String)    : void
+    + showMembers()                : void
+}
+
+' ─────────────── Member ───────────────
+class Member {
+    - memberId          : String
+    - memberName        : String
+    - memberEmailId     : String
+    - borrowedBooks     : List<Book>
+    - reservedBooks     : List<Book>
+    - borrowedBooksCount : int
+    - LibToken          : String
+    + getmemberId()            : String
+    + getMemberName()          : String
+    + getMemberEmailId()       : String
+    + getLibToken()            : String
+    + getBorrowedBooks()       : void
+    + getReserverBooks()       : void
+    + getBorrowedBooksCount()  : int
+    + {static} borrowBook(book : Book, member : Member)          : void
+    + {static} returnBook(book : Book, days : int, member : Member) : void
+    + {static} reserveBook(book : Book, memberIdReserve : int)   : void
+    - {static} memberInstance(m : Member) : String
+}
+
+' ─────────────── Student ───────────────
+class Student {
+    + {static} students : List<Student>
+    ' borrow limit: 1 book
+    + {static} getStudens() : void
+}
+
+' ─────────────── Staff ───────────────
+class Staff {
+    + {static} staffs : List<Staff>
+    ' borrow limit: 2 books
+    + {static} getStaffs() : void
+}
+
+' ─────────────── Relationships ───────────────
+
+' Inheritance
+Member <|-- Student
+Member <|-- Staff
+
+' Library statically holds books and members
+Library "1" o-- "0..*" Book    : books >
+Library "1" o-- "0..*" Member  : members >
+
+' Book uses BOOKSTATUS
+Book ..> BOOKSTATUS : <<use>>
+
+' Member references Book (borrowed / reserved lists)
+Member "1" --> "0..*" Book : borrows / reserves >
+
+' Librarian operates on Library collections
+Librarian ..> Library : <<manages>>
+Librarian ..> Book    : <<manages>>
+Librarian ..> Member  : <<manages>>
+
+' LibraryIdGenerator creates tokens used by Members
+LibraryIdGenerator ..> Member : <<creates token for>>
+
+@enduml
