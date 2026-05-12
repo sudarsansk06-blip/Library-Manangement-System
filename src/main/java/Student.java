@@ -17,6 +17,7 @@ public class Student extends Member {
         for (Student m : students) {
             if (m == null) {
                 System.out.println("Member Signed out from Library!");
+                System.out.println("---------------------------------------------------------------------------------------------------");
                 continue;
             }
             System.out.println("---------------------------------------------------------------------------------------------------");
