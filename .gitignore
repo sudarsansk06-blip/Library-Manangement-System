@@ -64,3 +64,5 @@ build/
 hs_err_pid*
 replay_pid*
 >>>>>>> d1163f16af16e781222e562c03dc531d39b1780e
+
+*.puml
