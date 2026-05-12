@@ -55,6 +55,7 @@ public class Librarian {
         for (Member m : Library.members) {
             if (m == null) {
                 System.out.println("Member Signed out from Library!");
+                System.out.println("---------------------------------------------------------------------------------------------");
                 continue;
             }
             System.out.printf("%-10s %-20s %-30s %-15d%n",
