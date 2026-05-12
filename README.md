@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 📚 Library Management System
 
 A Java-based Library Management System developed to practice Object-Oriented Programming (OOP), Low Level Design (LLD), Collections Framework, and real-world system simulation.
@@ -56,3 +57,7 @@ This project simulates a real library where users can manage books, register mem
 ## 📂 Class Diagram
 
 ![Library Diagram](LIBRARY_MANAGEMENT_SYSTEM.png)
+=======
+# Library-Manangement-System
+The Library Management System is a simple Java console application to manage library books and members. It allows users to view books, register members, and perform operations like borrow, return, and reserve books using a menu-based system. The project is built using Java and OOP concepts to simulate basic library operations.
+>>>>>>> d1163f16af16e781222e562c03dc531d39b1780e
